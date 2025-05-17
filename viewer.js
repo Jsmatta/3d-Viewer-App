@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from './libs/addons/loaders/GLTFLoader.js';
 import * as BufferGeometryUtils from './libs/addons/utils/BufferGeometryUtils.js';
+import { OrbitControls } from './libs/addons/controls/OrbitControls.js';
+
 
 // viewer container
 const container = document.getElementById('viewer');
