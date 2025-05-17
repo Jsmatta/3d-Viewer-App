@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-// import { GLTFLoader } from './addons/GLTFloader.js';
-// import * as BufferGeometryUtils from './addons/BufferGeometryUtils.js';
+import { GLTFLoader } from './libs/addons/loaders/GLTFLoader.js';
+import * as BufferGeometryUtils from './libs/addons/utils/BufferGeometryUtils.js';
 
 // viewer container
 const container = document.getElementById('viewer');
