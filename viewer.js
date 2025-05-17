@@ -36,3 +36,13 @@ function animate(time) {
   requestAnimationFrame(animate);
 }
 animate();
+
+// zoom in and out
+document.getElementById('zoom-in').addEventListener('click', () => {
+  camera.position.z -= 0.1;
+}
+);
+document.getElementById('zoom-out').addEventListener('click', () => {
+  camera.position.z += 0.1;
+}
+);
