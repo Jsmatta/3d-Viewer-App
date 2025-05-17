@@ -23,14 +23,9 @@ body {
     max-width: 900px;
     margin: 40px auto;
     padding: 24px;
-    background: #458588;
+    background: #975E60;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 16px;
-    font-weight: 600;
 }
 
 a {
