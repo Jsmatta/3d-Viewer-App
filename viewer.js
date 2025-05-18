@@ -75,7 +75,8 @@ document.getElementById('zoom-out').addEventListener('click', () => {
 );
 // reset zoom
 document.getElementById('reset').addEventListener('click', () => {
-  camera.position.z = 2;
+  controls.reset();
+  controls.update();
 }
 );
 
