@@ -64,21 +64,20 @@ animateBtn.addEventListener('click', () => {
 // Set initial button text
 animateBtn.textContent = 'Pause Animation';
 
-// zoom in and out
 document.getElementById('zoom-in').addEventListener('click', () => {
-  camera.position.z -= 0.1;
-}
-);
+  controls.dollyOut(1.1);
+  controls.update();
+});
+
 document.getElementById('zoom-out').addEventListener('click', () => {
-  camera.position.z += 0.1;
-}
-);
-// reset zoom
+  controls.dollyIn(1.1);
+  controls.update();
+});
+
 document.getElementById('reset').addEventListener('click', () => {
   controls.reset();
   controls.update();
-}
-);
+});
 
 // Orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);

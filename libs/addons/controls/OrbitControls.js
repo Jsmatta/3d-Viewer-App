@@ -446,6 +446,9 @@ class OrbitControls extends EventDispatcher {
 
 		};
 
+		this.dollyIn = dollyIn;
+		this.dollyOut = dollyOut;
+
 		//
 		// internals
 		//
