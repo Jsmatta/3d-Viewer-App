@@ -25,9 +25,8 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.z = 5; //adjust based on the model size
 
-// GLTFLoader
+// GLTFLoader loading the model
 const loader = new GLTFLoader().setPath('./public/apollo11/');
-// Load the GLTF model
 let animatedObject = null; // Reference to the object to animate
 
 loader.load('apollo_exterior-150k-4096.gltf', (gltf) => {
@@ -123,7 +122,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.screenSpacePanning = false;
-controls.maxPolarAngle = Math.PI / 2;
+controls.maxPolarAngle = Math.PI;
 controls.minDistance = 0.1;
 controls.maxDistance = 10;
 controls.target.set(0, 0, 0);
