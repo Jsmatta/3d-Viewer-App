@@ -30,35 +30,53 @@ const loader = new GLTFLoader().setPath('./public/apollo11/');
 let animatedObject = null; // Reference to the object to animate
 
 loader.load('apollo_exterior-150k-4096.gltf', (gltf) => {
+  console.log('Model loaded:', gltf);
   const model = gltf.scene;
 
-  // Extract geometries from the model
-  const geometries = [];
+  // Scale and position the model
+  model.scale.set(0.01, 0.01, 0.01);
+  model.position.set(0, 0, 0);
+
   model.traverse((child) => {
     if (child.isMesh) {
-      geometries.push(child.geometry);
+      console.log('Mesh:', child.name);
+      const material = child.material;
+
+      if (material.map) { //find texture map
+        material.map.colorSpace = THREE.SRGBColorSpace;
+        material.map.flipY = false;
+        material.map.needsUpdate = true;
+      }
+      if (material.normalMap) { //find normal map
+        material.normalMap.flipY = false;
+        material.normalMap.needsUpdate = true;
+      }
+      if (material.aoMap) { //find ambient occlusion map
+        material.aoMap.flipY = false;
+        material.aoMap.needsUpdate = true;
+      }
+      if (material.roughnessMap) { //find roughness map
+        material.roughnessMap.flipY = false;
+        material.roughnessMap.needsUpdate = true;
+      }
+      if (material.metalnessMap) { //find metalness map
+        material.metalnessMap.flipY = false;
+        material.metalnessMap.needsUpdate = true;
+      }
     }
   });
 
-  // Merge geometries using BufferGeometryUtils
-  const mergedGeometry = BufferGeometryUtils.mergeGeometries(geometries);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: null }); // Placeholder for textures
-  const mergedMesh = new THREE.Mesh(mergedGeometry, material);
-
-  // Apply rotation and position adjustments
-  mergedMesh.rotation.x = THREE.MathUtils.degToRad(90); // Rotate 90 degrees around the X-axis
-  mergedMesh.position.set(0, -2, 0); // Adjust position if needed
-  mergedMesh.scale.set(0.01, 0.01, 0.01); // Adjust scale for visibility
-
-  // Add the merged mesh to the scene
-  scene.add(mergedMesh);
-
-  // Set the animated object to the loaded model
-  animatedObject = mergedMesh;
+  scene.add(model); //load model the the scene
+  animatedObject = model; // animate the model
 });
 
+// lighting added to the scene
+const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
+directionalLight.position.set(5, 5, 5);
+scene.add(directionalLight);
 
-// Add a basic cube
+
+// // Add a basic cube
 // const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
 // const material = new THREE.MeshNormalMaterial();
 // const mesh = new THREE.Mesh(geometry, material);
@@ -72,7 +90,7 @@ let animationId = null;
 function animate(time) {
   if (isAnimating) {
     if (animatedObject) {
-      animatedObject.rotation.z = time / 1000; // Rotate the loaded model
+      animatedObject.rotation.y = time / 1000; // Rotate the loaded model across y-axis
     }
     renderer.render(scene, camera);
     animationId = requestAnimationFrame(animate);
@@ -81,10 +99,6 @@ function animate(time) {
 
 // Start animation initially
 animate();
-
-// lights added
-const light = new THREE.AmbientLight(0xffffff, 1); // Ambient light
-scene.add(light);
 
 // Animation toggle button
 const animateBtn = document.getElementById('animate');
