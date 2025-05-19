@@ -25,6 +25,19 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.z = 2;
 
+// GLTFLoader
+const loader = new GLTFLoader().setPath('./public/apollo11/textures/');
+// Load the GLTF model
+loader.load('apollo_exterior-150k-4096.gltf',
+  (gltf) => {
+    const model = gltf.scene;
+    model.position.set(0, 0, 0);
+    scene.add(model);
+  
+  }
+)
+
+
 // Add a basic cube
 const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
 const material = new THREE.MeshNormalMaterial();
@@ -47,6 +60,10 @@ function animate(time) {
 
 // Start animation initially
 animate();
+
+// lights added
+const light = new THREE.AmbientLight(0xffffff, 1); // Ambient light
+scene.add(light);
 
 // Animation toggle button
 const animateBtn = document.getElementById('animate');
